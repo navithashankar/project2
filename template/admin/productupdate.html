@@ -1,0 +1,109 @@
+{% extends 'admin/headerfooter.html' %}
+{% block content %}
+
+
+
+<!--main content start-->
+<section id="main-content">
+	<section class="wrapper">
+	<div class="form-w3layouts">
+        <!-- page start-->
+        <!-- page start-->
+        <div class="row">
+            <div class="col-lg-12">
+            	<h4 style="color: red;text-align: center;">{{error}}</h4>
+                    <section class="panel">
+                        <header class="panel-heading">
+                            Product Forms
+                        </header>
+                        <div class="panel-body">
+                            <div class="position-center">
+                                <!--<form role="form">-->
+                                    {% for x in details %}
+                                <form action="/admin_productupdate/?pid={{x.id}}" method="post" enctype="multipart/form-data">
+								{% csrf_token %}
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Product Name</label>
+                                    <input type="text" class="form-control" id="exampleInputEmail1" name="Name" placeholder="Enter productname" value="{{x.name}}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="price">Price</label>
+                                    <input type="text" class="form-control" id="price" name="Price" placeholder="Price" value="{{x.price}}">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="PRICE1">Off Price</label>
+                                    <input type="text" class="form-control" id="PRICE1" name="Offprice" placeholder="Off Price"value="{{x.offprice}}">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="DETAILS">Details</label>
+                                    <input type="text" class="form-control" id="DETAILS" name="Details" placeholder="Details" value="{{x.details}}">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="img"> Image</label>
+                                    <img src="{{x.proimage.url}}">
+                                    
+                                 </div>
+
+                                <div class="form-group">
+                                    <label for="items">Category</label>
+                                    <!--<input type="text" class="form-control" id="CATEGORY" name="Category" placeholder="Category" value="{{x.Category}}">-->
+                                    <select id="CATEGORY" class="form-control" name="Category" >
+                                        <option value="{{x.category}}"  selected>{{x.category}}</option>
+                                        <option value="Bakery">Bakery</option>
+                                        <option value="household">household</option>
+                                        <option value="kitchen">kitchen</option>
+                                        <option value="petcare">petcare</option>
+                                    </select>
+                                </div>
+
+
+
+                                 <div class="form-group">
+                                    <label for="up">Do you want update image</label>
+                                    <input type="radio"  id="imgup" name="imgup" onchange="hide();" value="yes">Yes
+                                    <input type="radio"  id="imgup1" name="imgup" onchange="hide();" checked="" value="no">No
+
+                                    
+                                 </div>
+                                <div class="form-group" style="display: none;" id="proup">
+                                    <label for="FILE">Update Image</label>
+                                    <input type="file" class="form-control" id="FILE" name="Proimage" placeholder="Proimage" >
+                                    
+                                 </div>
+
+                                 <div class="text-right">
+                                    <button type="submit" class="btn btn-primary btn-style mt-4">Update</button>  
+                                 </div>
+                               
+                               <!--  <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox"> Check me out
+                                    </label>
+                                </div> -->
+                                <!--<button type="submit" class="btn btn-info">Submit</button>-->
+                           <!-- </form>-->
+                            </form>
+                            {% endfor %}
+                            </div>
+
+                        </div>
+                    </section>
+
+            </div>
+<script type="text/javascript">
+        function hide(){
+        var chkYes = document.getElementById("imgup");
+        var divproup = document.getElementById("proup");
+        divproup.style.display = chkYes.checked ? "block" : "none";
+        if (chkYes.checked){
+            var img = document.getElementById("FILE").required = true;
+        }
+        else{
+            var img = document.getElementById("FILE").required = false;
+        }
+    }
+</script>
+{% endblock %}

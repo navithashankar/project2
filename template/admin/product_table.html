@@ -1,0 +1,74 @@
+{% extends 'admin/headerfooter.html' %}
+{% block content %}
+
+
+<!--main content start-->
+<section id="main-content">
+	<section class="wrapper">
+		<div class="table-agile-info">
+ <div class="panel panel-default">
+    <div class="panel-heading">
+     Product table
+    </div>
+    <div>
+      <table class="table" ui-jq="footable" ui-options='{
+        "paging": {
+          "enabled": true
+        },
+        "filtering": {
+          "enabled": true
+        },
+        "sorting": {
+          "enabled": true
+        }}'>
+        <thead>
+          <tr>
+            <th data-breakpoints="xs">ID</th>
+            <th>Product Name</th>
+            <th>Price</th>
+            <th>Off Price</th>          
+            <th >Details</th>
+            <th>Product Image</th>
+            <th>category</th> 
+          </tr>
+        </thead>
+        <tbody>
+          {% for x in prd %}
+          <tr data-expanded="true">
+            <td>{{forloop.counter}}</td>
+            <td>{{x.name}}</td>
+            <td>{{x.price}}</td>
+            <td>{{x.offprice}}</td>
+            <td>{{x.details}} </td>
+            <td><img src="{{x.proimage.url}}" style="width: 100px; height: 100px;object-fit: contain;" alt="" > </td>
+            <td>{{x.category}}</td>
+            <td><a href="/admin_productupdate/?pid={{x.id}}">Edit</a></td>
+            <td><a href="/admin_productdelete/?pid={{x.id}}">Delete</a></td>
+          </tr>
+          {% endfor %}
+          <!-- <tr>
+            <td>2</td>
+            <td>almonds</td>
+            <td>$194</td>
+            <td>$125</td>
+            <td>protein rich</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>cashews</td>
+            <td>$150</td>
+            <td>$150</td>
+            <td>protein rich</td>
+            <td></td>
+          </tr> -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+</section>
+
+
+
+{% endblock %}

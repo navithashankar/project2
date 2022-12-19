@@ -1,0 +1,124 @@
+{% extends 'admin/headerfooter.html' %}
+{% block content %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript">
+	function data()
+{
+	// alert("a");
+	var d=document.getElementById('username').value;
+	$.ajax({
+
+				url:'/ajaxview/',
+				data:
+				{
+					'uid':d
+				},
+				datatype: 'json',
+				success: function(data)
+				{
+					document.getElementById("nameid").innerHTML=data.aa;
+					document.getElementById("emailid").innerHTML=data.bb;
+					
+
+				}
+
+
+			});
+}
+</script>
+
+<!--main content start-->
+<section id="main-content">
+	<section class="wrapper">
+	<div class="form-w3layouts">
+        <!-- page start-->
+        <!-- page start-->
+        <div class="row">
+            <div class="col-lg-12">
+            	<h4 style="color: red;text-align: center;">{{error}}</h4>
+                    <!--<section class="panel">-->
+                    	<div class="panel panel-default">
+                        <div class="panel-heading">
+     						Basic Form
+    					</div>
+                        <div class="panel-body">
+                            <div class="position-center">
+                                <!--<form role="form">-->
+                                <form >
+								{% csrf_token %}
+
+
+                                <div class="form-group">
+                                    <label for="items">User Name</label>
+                                    <!--<input type="radio" class="form-control" id="CATEGORY" name="category"placeholder="category">-->
+                                    <select id="username" class="form-control" name="username" onchange="data();">
+  										<option  selected>Select One</option>
+  										{% for x in usr %}
+  										<option value="{{x.id}}">{{x.name}}</option>
+  										{% endfor %}
+  										<!-- <option value="manu">manu</option>
+  										<option value="anju">anju</option>
+  										<option value="ammu">ammu</option> -->
+									</select>
+
+                                </div>   
+                           
+                            </form>
+                            </div>
+
+                        </div>
+                    </div>   
+            </div>
+        </div>
+    </div>
+
+	<div class="table-agile-info">
+ 		<div class="panel panel-default">
+    	<div class="panel-heading">
+     		Basic Details
+    	</div>
+    <div>
+      	<table class="table" ui-jq="footable" ui-options='{
+         "paging": {
+           "enabled": true
+          },
+         "filtering": {
+           "enabled": true
+          },
+         "sorting": {
+           "enabled": true
+          }}'>
+        <thead>
+          <tr>
+            <!-- <th data-breakpoints="xs">ID</th> -->
+            <th>User name</th>
+            <th>Email</th>
+            <!-- <th>Hash Password</th>  -->
+          </tr>
+        </thead>
+        <tbody>
+        
+          <tr data-expanded="true">
+            <!-- <td>{{forloop.counter}}</td> -->
+            <td id="nameid"></td>
+            <td id="emailid"></td>
+            <!-- <td>{{x.hashpassword}}</td> -->
+            </tr>
+        
+
+          </tbody>
+       	</table>
+    </div>
+ 		</div>
+    </div>
+	</section>
+</section>
+
+
+
+
+
+
+{% endblock %}
+
+
